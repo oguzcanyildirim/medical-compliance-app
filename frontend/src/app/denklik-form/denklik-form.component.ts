@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 interface Rule {
   question: string;
@@ -45,12 +46,12 @@ export class DenklikFormComponent implements OnInit {
 
   submit() {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json; charset=utf-8',  // UTF-8 encoding
+      'Content-Type': 'application/json; charset=utf-8',
     });
   
-    this.http.post('/api/denklik-hesapla', this.denklikForm.value, { 
+    this.http.post(`${environment.apiUrl}/denklik-hesapla`, this.denklikForm.value, {
       headers: headers,
-      responseType: 'blob' 
+      responseType: 'blob'
     }).subscribe(blob => {
       const url = window.URL.createObjectURL(blob);
       window.open(url);

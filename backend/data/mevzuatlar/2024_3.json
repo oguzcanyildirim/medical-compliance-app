@@ -1,0 +1,11 @@
+{
+    "name": "2024/3",
+    "rules": [
+      { "question": "Steril mi?", "required": true },
+      { "question": "CE sertifikası var mı?", "required": true },
+      { "question": "Üretim yeri ISO belgesi var mı?", "required": false },
+      { "question": "Malzeme biyouyumlu mu?", "required": false },
+      { "question": "Kullanım kılavuzu mevcut mu?", "required": true }
+    ]
+  }
+  

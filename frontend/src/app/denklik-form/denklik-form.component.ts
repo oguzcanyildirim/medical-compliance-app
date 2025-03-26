@@ -24,6 +24,7 @@ interface Mevzuat {
 export class DenklikFormComponent implements OnInit {
   denklikForm!: FormGroup;
   questions: Rule[] = [];
+  isLoading = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {}
 
@@ -45,16 +46,20 @@ export class DenklikFormComponent implements OnInit {
   }
 
   submit() {
+    this.isLoading = true;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8',
     });
-  
     this.http.post(`${environment.apiUrl}/denklik-hesapla`, this.denklikForm.value, {
       headers: headers,
       responseType: 'blob'
     }).subscribe(blob => {
       const url = window.URL.createObjectURL(blob);
       window.open(url);
+      this.isLoading = false;
+    }, error => {
+      console.error('PDF oluşturma hatası:', error);
+      this.isLoading = false;
     });
   }
 }

@@ -23,12 +23,13 @@
       <span class="text-sm text-gray-800">{{ q.question }}</span>
     </div>
   </div>
-
   <button
     type="submit"
     class="bg-blue-600 text-white font-semibold px-5 py-2 rounded hover:bg-blue-700 transition"
+    [disabled]="isLoading"
   >
     📄 PDF Oluştur
   </button>
+  <div *ngIf="isLoading">PDF hazırlanıyor, lütfen bekleyin...</div>
 </form>
   

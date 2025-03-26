@@ -26,9 +26,11 @@ export class DenklikFormComponent implements OnInit {
   questions: Rule[] = [];
   isLoading = false;
 
+  availableMevzuatlar: string[] = [];
+
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
-  ngOnInit() {
+  /*ngOnInit() {
     this.http.get<Mevzuat>('assets/mevzuatlar/2024_3.json').subscribe((mevzuat) => {
       const answerGroup: any = {};
       mevzuat.rules.forEach(rule => {
@@ -42,6 +44,35 @@ export class DenklikFormComponent implements OnInit {
       });
 
       this.questions = mevzuat.rules;
+    });
+  }*/
+  ngOnInit() {
+    this.http.get<string[]>('/api/mevzuatlar').subscribe((list) => {
+      this.availableMevzuatlar = list;
+  
+      const defaultMevzuat = list[0];  // İlk mevzuatla başlasın
+      this.loadMevzuat(defaultMevzuat);
+    });
+  }
+  loadMevzuat(mevzuatId: string) {
+    this.http.get<Mevzuat>(`/api/mevzuatlar/${mevzuatId}`).subscribe((mevzuat) => {
+      const answerGroup: any = {};
+      mevzuat.rules.forEach(rule => {
+        answerGroup[rule.question] = [false];
+      });
+  
+      this.denklikForm = this.fb.group({
+        firmaAdi: ['', Validators.required],
+        selectedMevzuat: [mevzuatId],
+        answers: this.fb.group(answerGroup),
+      });
+  
+      this.questions = mevzuat.rules;
+  
+      // dropdown değiştiğinde tekrar yükle
+      this.denklikForm.get('selectedMevzuat')?.valueChanges.subscribe(val => {
+        this.loadMevzuat(val);
+      });
     });
   }
 

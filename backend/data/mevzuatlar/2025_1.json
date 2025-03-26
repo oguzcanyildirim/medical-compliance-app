@@ -1,0 +1,20 @@
+{
+  "rules": [
+    {
+      "question": "Medikal yonetmelige uygun mu",
+      "required": true
+    },
+    {
+      "question": "dosyalarla uyumluluk orani %50 uzerinde mi",
+      "required": true
+    },
+    {
+      "question": "test4",
+      "required": true
+    },
+    {
+      "question": "test5",
+      "required": true
+    }
+  ]
+}

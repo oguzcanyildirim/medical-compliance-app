@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const denklikRoutes = require('./routes/denklik');
+const denklikRoute = require('./routes/denklik');
+const mevzuatRoute = require('./routes/mevzuat');
 
 const app = express();
 
@@ -23,7 +24,8 @@ app.use(cors({
 
 app.use(express.json({ type: 'application/json' }));  // UTF-8 çözümleme için
 
-app.use('/api', denklikRoutes);
+app.use('/api', denklikRoute);
+app.use("/api", mevzuatRoute);
 
 app.get('/ping', (req, res) => {
   res.status(200).send('pong');

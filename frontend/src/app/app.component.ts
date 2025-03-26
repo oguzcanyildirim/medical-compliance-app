@@ -1,10 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { DenklikFormComponent } from './denklik-form/denklik-form.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [DenklikFormComponent],
-  template: `<app-denklik-form />`
+  imports: [RouterModule, CommonModule],
+  templateUrl: './app.component.html'
 })
-export class AppComponent {}
+export class AppComponent {
+  menuOpen = false;
+}

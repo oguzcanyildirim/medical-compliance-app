@@ -25,7 +25,11 @@ app.use(express.json({ type: 'application/json' }));  // UTF-8 çözümleme içi
 
 app.use('/api', denklikRoutes);
 
+app.get('/ping', (req, res) => {
+  res.status(200).send('pong');
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Backend http://localhost:${PORT} üzerinden çalışıyor`);
+  console.log(`🚀 Backend Port ${PORT} üzerinden çalışıyor`);
 });

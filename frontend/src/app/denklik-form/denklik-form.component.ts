@@ -26,7 +26,7 @@ export class DenklikFormComponent implements OnInit {
   questions: Rule[] = [];
   isLoading = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
     this.http.get<Mevzuat>('assets/mevzuatlar/2024_3.json').subscribe((mevzuat) => {
@@ -55,11 +55,21 @@ export class DenklikFormComponent implements OnInit {
       responseType: 'blob'
     }).subscribe(blob => {
       const url = window.URL.createObjectURL(blob);
-      window.open(url);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'denklik_raporu.pdf';
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+
       this.isLoading = false;
     }, error => {
       console.error('PDF oluşturma hatası:', error);
       this.isLoading = false;
     });
   }
+
+
 }

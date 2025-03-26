@@ -6,7 +6,7 @@ const PDFDocument = require("pdfkit");
 
 router.post("/denklik-hesapla", (req, res) => {
     const { selectedMevzuat, answers, firmaAdi } = req.body;
-
+    console.log(`incoming request with firma adi: , ${firmaAdi}`);
     const mevzuatPath = path.join(__dirname, `../data/mevzuatlar/${selectedMevzuat}.json`);
     if (!fs.existsSync(mevzuatPath)) {
         return res.status(400).json({ error: "Mevzuat bulunamadı" });
